@@ -5,10 +5,12 @@
   "main": "app.js",
   "dependencies": {
     "adal-node": "^0.1.28",
+    "bluebird": "^3.5.1",
     "botbuilder": "^3.13.1",
     "botbuilder-azure": "^3.0.4",
     "es6-promise": "^4.2.4",
     "moment": "^2.22.1",
+    "request-promise": "^4.2.2",
     "restify": "^5.0.0",
     "util": "^0.10.3"
   },
