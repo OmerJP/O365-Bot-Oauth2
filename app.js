@@ -285,6 +285,30 @@ bot.dialog('ManagerDialog',
     matches: 'Manager'
 })
 
+bot.dialog('MyTeamsDialog',
+    async (session) => {
+        await getAuthorization(session);
+        if (session.privateConversationData['accessToken']) {
+            graph.getMyTeams(session.privateConversationData['accessToken'])
+                .then((result) => {
+                    console.log(result);
+                    let teams = ''; 
+                    for (const team of result.value) {
+                        teams += team.displayName + '  \n';
+                    }
+                    session.send('Your teams are:  \n%s', teams);
+                    session.endDialog();
+                }, (error) => {
+                    console.error('>>> Error getting manager: ' + error.message);
+                    session.send('>>> Error getting manager: %s' + error.message);
+                    session.endDialog();
+                });
+        }
+    }
+).triggerAction({
+    matches: 'MyTeams'
+})
+
 bot.dialog('PhotoDialog',
     async (session) => {
         await getAuthorization(session);
@@ -459,6 +483,32 @@ graph.getMyManager = (token) => {
             } else {
                 // The value of the body will be an array.
                 resolve(parsedBody.displayName);
+            }
+        });
+    });
+    return p;
+};
+
+/**
+ * Get my teams
+ * @param {*} token to append in the header in order to make the request
+ */
+graph.getMyTeams = (token) => {
+    var p = new Promise((resolve, reject) => {
+        request.get('https://graph.microsoft.com/beta/me/joinedTeams', {
+            auth: {
+                bearer: token
+            }
+        }, function (err, response, body) {
+            var parsedBody = JSON.parse(body);
+
+            if (err) {
+                reject(err);
+            } else if (parsedBody.error) {
+                reject(parsedBody.error.message);
+            } else {
+                // The value of the body will be an array.
+                resolve(parsedBody);
             }
         });
     });
