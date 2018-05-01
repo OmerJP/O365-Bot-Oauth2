@@ -1,4 +1,4 @@
-# Office 365 Modern Provisioning with Bot, Flow, Azure Function #
+# Building your personal Office 365 assistant #
 
 ## Summary ##
 
