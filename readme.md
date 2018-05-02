@@ -39,4 +39,4 @@ Version|Date|Comments
  
 ### 1- Setup the Azure AD application ###
 
-The Bot makes use of Microsoft Graph API (App Only), you need to register a new app in the Azure Active Directory behind your Office 365 tenant using the Azure portal.
+The Bot makes use of Microsoft Graph API, you need to register a new app in the Azure Active Directory behind your Office 365 tenant using the Azure portal.
